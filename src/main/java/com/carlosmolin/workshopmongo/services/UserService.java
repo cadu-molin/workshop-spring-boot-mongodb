@@ -33,6 +33,12 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public User update(User user) {
+        User userSave = findById(user.getId());
+        BeanUtils.copyProperties(user, userSave, "id");
+        return userRepository.save(userSave);
+    }
+
     public User fromDTO(UserDTO userDTO) {
         return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
